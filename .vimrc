@@ -1,4 +1,4 @@
-set nocompatible              " be iMproved, required
+set nocompatible              " required
 filetype off                  " required
 
 set tabstop=4
@@ -40,8 +40,8 @@ set statusline+=%{FugitiveStatusline()}
 
 syntax on
 colorscheme onedark
-filetype plugin indent on     " required
-set backspace=indent,eol,start  " for backspace to work in insert mode"
+filetype plugin indent on    " required
+set backspace=indent,eol,start  " for backspace to work in insert mode
 vnoremap <C-r> "hy:%s/<C-r>h//g<left><left><left>
 nnoremap <F9> :w<CR>:!%:p<Enter>
 xnoremap << <gv
