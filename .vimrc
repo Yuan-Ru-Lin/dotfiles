@@ -45,3 +45,4 @@ nnoremap <F9> :w<CR>:!%:p<Enter>
 xnoremap << <gv
 xnoremap >> >gv
 
+nnoremap <LEADER>t :w<CR>:!pytest -q<CR>
