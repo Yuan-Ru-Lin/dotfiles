@@ -35,6 +35,7 @@ let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
 Plugin 'tpope/vim-fugitive'
 set statusline+=%{FugitiveStatusline()}
+Plugin 'tpope/vim-eunuch'
 
 syntax on
 colorscheme onedark
