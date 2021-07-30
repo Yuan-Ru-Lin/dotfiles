@@ -16,7 +16,7 @@ void SetBelle2Style()
   gROOT->ForceStyle();
 }
 
-TStyle* Belle2Style() 
+TStyle* Belle2Style()
 {
   TStyle *belle2Style = new TStyle("BELLE2","Belle2 style");
 
@@ -48,24 +48,24 @@ TStyle* Belle2Style()
   //Int_t font=72; // Helvetica italics
   //Int_t font=42; // Helvetica
   Int_t font=132; // Times New Roman
-  Double_t tsize=0.05;  
+  Double_t tsize=0.05;
   belle2Style->SetTextFont(font);
   belle2Style->SetTextSize(tsize);
-    
+
   belle2Style->SetLabelFont(font,"x");
   belle2Style->SetTitleFont(font,"x");
   belle2Style->SetLabelFont(font,"y");
   belle2Style->SetTitleFont(font,"y");
   belle2Style->SetLabelFont(font,"z");
   belle2Style->SetTitleFont(font,"z");
-  
+
   belle2Style->SetLabelSize(tsize,"x");
   belle2Style->SetTitleSize(.065,"x");
   belle2Style->SetLabelSize(tsize,"y");
   belle2Style->SetTitleSize(.065,"y");
   belle2Style->SetLabelSize(tsize,"z");
   belle2Style->SetTitleSize(.065,"z");
-    
+
   belle2Style->SetTitleOffset(1.1,"x");
   belle2Style->SetTitleOffset(1.2,"y");
   belle2Style->SetTitleOffset(1.1,"z");
@@ -74,7 +74,7 @@ TStyle* Belle2Style()
   belle2Style->SetLabelOffset(0.015,"y");
   belle2Style->SetLabelOffset(0.015,"z");
 
-    
+
   belle2Style->SetTickLength(0.03,"x");
   belle2Style->SetTickLength(0.02,"y");  // This way we slighty achive equal length ticks for x and y
 
@@ -84,7 +84,7 @@ TStyle* Belle2Style()
   belle2Style->SetHistLineWidth(2);
   belle2Style->SetLineStyleString(2,"[12 12]"); // postscript dashes
 
-  // get rid of X error bars 
+  // get rid of X error bars
   belle2Style->SetErrorX(0.001);
   // get rid of error bar caps
   belle2Style->SetEndErrorSize(0.);
@@ -107,7 +107,7 @@ TStyle* Belle2Style()
   belle2Style->SetLegendFillColor(0);
   belle2Style->SetLegendTextSize(0.045);
   belle2Style->SetLegendFont(font);
-    
+
   return belle2Style;
 
 }
