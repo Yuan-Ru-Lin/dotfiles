@@ -1,11 +1,6 @@
 [user]
-	email = YuanRuLin.TW@gmail.com
+	email = yuanruleonlin@gmail.com
 	name = Yuan-Ru Lin
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [github]
 	user = Yuan-Ru-Lin
 [ghi]
