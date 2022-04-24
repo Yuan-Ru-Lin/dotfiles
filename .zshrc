@@ -11,5 +11,3 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 alias ls="ls --color=auto"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
