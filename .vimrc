@@ -30,21 +30,25 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_include_dirs = ['/cvmfs/belle.cern.ch/el7/externals/v01-09-01/include/root/']
+let g:syntastic_cpp_checkers = ["g++"]
 let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
-Plugin 'tpope/vim-fugitive'
-set statusline+=%{FugitiveStatusline()}
 Plugin 'tpope/vim-eunuch'
 
 syntax on
 colorscheme onedark
 filetype plugin indent on    " required
+
+set exrc
+nnoremap <LEADER>ev :vsplit $MYVIMRC<CR>
+nnoremap <LEADER>sv :source $MYVIMRC<CR>
+
 set backspace=indent,eol,start  " for backspace to work in insert mode
-vnoremap <C-r> "hy:%s/<C-r>h//g<left><left><left>
+
 nnoremap <F9> :wa<CR>:!%:p<Enter>
 inoremap <F9> <ESC>:wa<CR>:!%:p<Enter>
+
 xnoremap << <gv
 xnoremap >> >gv
 
-nnoremap <LEADER>t :wa<CR>:!./run_tests.sh<CR>
+autocmd! BufNewFile,BufRead *.dvc,dvc.lock setfiletype yaml
+nnoremap <LocalLeader>r :w<CR>:!dvc repro <C-R>s<CR>
