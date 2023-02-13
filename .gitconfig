@@ -3,8 +3,6 @@
 	name = Yuan-Ru Lin
 [github]
 	user = Yuan-Ru-Lin
-[ghi]
-	token = !security find-internet-password -a Yuan-Ru-Lin -s github.com -l 'ghi token' -w
 [core]
 	editor = vim
 [init]
