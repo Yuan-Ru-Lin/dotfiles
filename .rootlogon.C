@@ -10,7 +10,7 @@ TStyle* Belle2Style();
 void SetBelle2Style()
 {
   static TStyle* belle2Style = 0;
-  printf("\nApplying BELLE2 style settings...\n");
+  //printf("\nApplying BELLE2 style settings...\n");
   if ( belle2Style==0 ) belle2Style = Belle2Style();
   gROOT->SetStyle("BELLE2");
   gROOT->ForceStyle();
