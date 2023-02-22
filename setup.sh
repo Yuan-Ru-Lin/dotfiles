@@ -7,4 +7,4 @@ for f in $(git ls-tree -r HEAD --name-only); do
     fi;
 done
 
-ln startup.sh $HOME/.julia/config/startup.sh
+ln startup.jl $HOME/.julia/config/startup.jl
