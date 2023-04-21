@@ -19,6 +19,7 @@ call vundle#rc()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'joshdick/onedark.vim'
+let g:onedark_termcolors = 256
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
 let g:markdown_folding = 1
