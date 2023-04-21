@@ -2,7 +2,9 @@
 
 for f in $(git ls-tree -r HEAD --name-only); do
     if [[ $f == .* ]]; then
-        rm $HOME/$f;
+        if [[ -f $HOME/$f ]]; then
+            rm $HOME/$f;
+        fi
         ln $f $HOME/$f;
     fi;
 done
