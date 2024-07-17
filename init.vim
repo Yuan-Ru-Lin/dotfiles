@@ -40,7 +40,7 @@ Plug 'vimlab/split-term.vim'
 
 call plug#end()
 
-colorscheme onedark
+silent! colorscheme onedark
 
 nnoremap <LEADER>ev :vsplit $MYVIMRC<CR>
 nnoremap <LEADER>sv :source $MYVIMRC<CR>
