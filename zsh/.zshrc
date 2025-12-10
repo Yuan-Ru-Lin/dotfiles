@@ -13,3 +13,7 @@ if [ -n "$SSH_CONNECTION" ]; then
     unset SSH_ASKPASS
     unset GIT_ASKPASS
 fi
+
+function chpwd() {
+  ls
+}
