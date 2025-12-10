@@ -14,6 +14,8 @@ if [ -n "$SSH_CONNECTION" ]; then
     unset GIT_ASKPASS
 fi
 
+. "$HOME/.cargo/env"
+
 function chpwd() {
   ls
 }
