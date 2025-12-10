@@ -80,8 +80,15 @@ require('packer').startup(function(use)
   -- text-objects
   use 'kana/vim-textobj-user'
   use 'sgur/vim-textobj-parameter'
-  use 'lucapette/vim-textobj-underscore'
-  use 'fvictorio/vim-textobj-backticks'
+  use {
+    'lucapette/vim-textobj-underscore',
+    requires = { 'kana/vim-textobj-user' },
+  }
+  
+  use {
+    'fvictorio/vim-textobj-backticks',
+    requires = { 'kana/vim-textobj-user' },
+  }
   use 'glts/vim-textobj-comment'
 
   use 'vimlab/split-term.vim'
