@@ -16,6 +16,17 @@ g.AutoPairsShortcutFastWrap     = '<C-e>'
 g.julia_indent_align_brackets   = 0
 g.netrw_banner                  = 0
 g.copilot_filetypes             = { ['*'] = true, markdown = false, typst = false, tex = false, }
+g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
 
 -- Bootstrap packer.nvim if not installed
 local ensure_packer = function()
