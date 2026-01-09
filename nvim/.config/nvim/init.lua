@@ -124,6 +124,18 @@ require('packer').startup(function(use)
     end
   }
 
+  use {
+    '3rd/image.nvim',
+    requires = { 'vhyrro/luarocks.nvim', },
+  }
+
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+  }
+
   -- Automatically set up your configuration after cloning packer.nvim
   if packer_bootstrap then
     require('packer').sync()
@@ -199,3 +211,21 @@ vim.keymap.set("n", "<leader>f", function()
     timeout_ms = 3000,  -- fail if formatting takes more than 3s
   })
 end, { desc = "Format buffer with Conform" })
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+require("nvim-tree").setup({
+    view = {width = 50},
+})
+require('image').setup({
+  max_width = 400,
+  max_height = 100,
+  max_width_window_percentage = 30,
+  max_height_window_percentage = 30,
+  integrations = {
+    nvim_tree = {
+      enabled = true,
+    },
+  },
+})
