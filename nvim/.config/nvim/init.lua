@@ -165,6 +165,8 @@ km('x', '<<', '<gv', { noremap = true })
 km('x', '>>', '>gv', { noremap = true })
 km('t', '<S-Space>', '<Space>', { noremap = true })
 km('t', '<S-Enter>', '<Enter>', { noremap = true })
+km('x', '*', [[y/\V<C-R>=escape(@", '/\')<CR><CR>]], { desc = 'Search selection forward' })
+km('x', '#', [[y?\V<C-R>=escape(@", '?\')<CR><CR>]], { desc = 'Search selection backward' })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
