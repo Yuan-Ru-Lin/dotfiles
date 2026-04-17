@@ -48,13 +48,31 @@ local packer_bootstrap = ensure_packer()
 
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'neovim/nvim-lspconfig'
+  use {'neovim/nvim-lspconfig', disable = vim.g.vscode}
+
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter").setup({
+        install_dir = vim.fn.stdpath("data") .. "/site",
+      })
+      require("nvim-treesitter").install({ "typst" })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "typst" },
+        callback = function()
+          vim.treesitter.start()
+        end,
+      })
+    end,
+  })
 
   use {
     "stevearc/conform.nvim",
     config = function()
       require("conform").setup()
     end,
+    disable = vim.g.vscode,
   }
 
   -- REPL & workflow
@@ -109,10 +127,14 @@ require('packer').startup(function(use)
     'williamboman/mason.nvim',
     -- optional but recommended: keep Mason’s registry up-to-date
     run = function() pcall(vim.cmd, 'MasonUpdate') end,
+    disable = vim.g.vscode,
   }
 
   -- (optionally, to bridge Mason with lspconfig)
-  use { 'williamboman/mason-lspconfig.nvim' }
+  use {
+    'williamboman/mason-lspconfig.nvim',
+    disable = vim.g.vscode
+  }
 
   use {
     'greggh/claude-code.nvim',
@@ -122,11 +144,6 @@ require('packer').startup(function(use)
     config = function()
       require('claude-code').setup()
     end
-  }
-
-  use {
-    '3rd/image.nvim',
-    requires = { 'vhyrro/luarocks.nvim', },
   }
 
   use {
@@ -158,14 +175,46 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-require('mason').setup()
-require('mason-lspconfig').setup {
-  ensure_installed = {
-      'pyright',
-      -- 'julials',
-      'tinymist',
-  },
-}
+if not vim.g.vscode then
+
+    require('mason').setup()
+    require('mason-lspconfig').setup {
+      ensure_installed = {
+          'pyright',
+          -- 'julials',
+          'tinymist',
+      },
+    }
+
+    require("conform").setup({
+        formatters = {
+            runic = {
+                command = "julia",
+                args = {"--project=@runic", "-e", "using Runic; exit(Runic.main(ARGS))"},
+            },
+        },
+        formatters_by_ft = {
+            julia = {"runic"},
+            c = {"clang-format"},
+            cpp = {"clang-format"},
+            sql = {"sql_formatter"},
+        },
+        default_format_opts = {
+            -- Increase the timeout in case Runic needs to precompile
+            -- (e.g. after upgrading Julia and/or Runic).
+            timeout_ms = 10000,
+        },
+    })
+
+    vim.keymap.set("n", "<leader>f", function()
+      require("conform").format({
+        lsp_fallback = true,
+        async = false,      -- block until formatting is done
+        timeout_ms = 3000,  -- fail if formatting takes more than 3s
+      })
+    end, { desc = "Format buffer with Conform" })
+
+end
 
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "scp://*",
@@ -184,48 +233,9 @@ function _G.CompleteDummy(findstart, base)
   if findstart == 1 then return 0 else return {} end
 end
 
-require("conform").setup({
-    formatters = {
-        runic = {
-            command = "julia",
-            args = {"--project=@runic", "-e", "using Runic; exit(Runic.main(ARGS))"},
-        },
-    },
-    formatters_by_ft = {
-        julia = {"runic"},
-        c = {"clang-format"},
-        cpp = {"clang-format"},
-        sql = {"sql_formatter"},
-    },
-    default_format_opts = {
-        -- Increase the timeout in case Runic needs to precompile
-        -- (e.g. after upgrading Julia and/or Runic).
-        timeout_ms = 10000,
-    },
-})
-
-vim.keymap.set("n", "<leader>f", function()
-  require("conform").format({
-    lsp_fallback = true,
-    async = false,      -- block until formatting is done
-    timeout_ms = 3000,  -- fail if formatting takes more than 3s
-  })
-end, { desc = "Format buffer with Conform" })
-
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("nvim-tree").setup({
     view = {width = 50},
-})
-require('image').setup({
-  max_width = 400,
-  max_height = 100,
-  max_width_window_percentage = 30,
-  max_height_window_percentage = 30,
-  integrations = {
-    nvim_tree = {
-      enabled = true,
-    },
-  },
 })
