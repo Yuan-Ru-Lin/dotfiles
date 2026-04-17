@@ -103,7 +103,6 @@ require('packer').startup(function(use)
   use 'vim-scripts/indentpython.vim'
 
   -- Typst
-  use 'kaarmu/typst.vim'
   use 'chomosuke/typst-preview.nvim'
 
   -- text-objects
