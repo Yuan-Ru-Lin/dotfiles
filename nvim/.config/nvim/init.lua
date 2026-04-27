@@ -234,6 +234,35 @@ function _G.CompleteDummy(findstart, base)
   if findstart == 1 then return 0 else return {} end
 end
 
+require("conform").setup({
+    formatters = {
+        runic = {
+            command = "julia",
+            args = {"--project=@runic", "-e", "using Runic; exit(Runic.main(ARGS))"},
+        },
+    },
+    formatters_by_ft = {
+        julia = {"runic"},
+        c = {"clang-format"},
+        cpp = {"clang-format"},
+        sql = {"sql_formatter"},
+        python = {"ruff_format"},
+    },
+    default_format_opts = {
+        -- Increase the timeout in case Runic needs to precompile
+        -- (e.g. after upgrading Julia and/or Runic).
+        timeout_ms = 10000,
+    },
+})
+
+vim.keymap.set("n", "<leader>f", function()
+  require("conform").format({
+    lsp_fallback = true,
+    async = false,      -- block until formatting is done
+    timeout_ms = 3000,  -- fail if formatting takes more than 3s
+  })
+end, { desc = "Format buffer with Conform" })
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
