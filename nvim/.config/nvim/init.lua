@@ -233,6 +233,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "python", "lua", "c", "cpp", "rust", "markdown", "text", "tex", "gitcommit" },
+  callback = function()
+    vim.opt_local.textwidth = 80
+  end,
+})
+
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "scp://*",
   callback = function()
