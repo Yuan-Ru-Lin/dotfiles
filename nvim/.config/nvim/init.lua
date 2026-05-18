@@ -183,25 +183,24 @@ if not vim.g.vscode then
     ensure_installed = { "basedpyright", "ruff", "tinymist" },
   })
 
-    require("conform").setup({
-      formatters = {
-        runic = {
-          command = "julia",
-          args = { "--project=@runic", "-e", "using Runic; exit(Runic.main(ARGS))" },
-        },
+  require("conform").setup({
+    formatters = {
+      runic = {
+        command = "julia",
+        args = { "--project=@runic", "-e", "using Runic; exit(Runic.main(ARGS))" },
       },
-      formatters_by_ft = {
-        julia = { "runic" },
-        c = { "clang-format" },
-        cpp = { "clang-format" },
-        sql = { "sql_formatter" },
-      },
-      default_format_opts = {
-        timeout_ms = 10000,
-      },
-    })
-
-  end)
+    },
+    formatters_by_ft = {
+      julia = { "runic" },
+      c = { "clang-format" },
+      cpp = { "clang-format" },
+      sql = { "sql_formatter" },
+      ocaml = { 'ocamlformat' },
+    },
+    default_format_opts = {
+      timeout_ms = 10000,
+    },
+  })
 
   vim.keymap.set("n", "<leader>f", function()
     require("conform").format({
