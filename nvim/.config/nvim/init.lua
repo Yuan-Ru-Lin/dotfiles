@@ -230,8 +230,8 @@ km('x', '#', [[y?\V<C-R>=escape(@", '?\')<CR><CR>]], { desc = 'Search selection 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'python',
   callback = function()
-    km('n', '<F9>', ':wa<CR>:!%:p<CR>', { buffer = true, noremap = true })
-    km('i', '<F9>', '<ESC>:wa<CR>:!%:p<CR>', { buffer = true, noremap = true })
+    km({ 'n', 'i' }, '<F9>', '<Cmd>wa<CR><Cmd>!%:p<CR>',
+       { buffer = true, desc = 'Save all & run current file' })
   end,
 })
 
