@@ -255,4 +255,15 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.lsp.enable({
+    'basedpyright',
+    'ruff',
+    'ocamllsp',
+})
 
+vim.diagnostic.config({
+  virtual_lines = { current_line = true },
+  virtual_text = false,
+  underline = true,
+  severity_sort = true,
+})
