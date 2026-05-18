@@ -241,7 +241,14 @@ end, {})
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
+    -- Clear LSP's formatexpr so `gq` falls back to Vim's built-in wrapping
     vim.bo[args.buf].formatexpr = ""
+
+    -- Enable LSP-based completion (e.g. Pyright's auto-imports)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, args.buf)
+    end
   end,
 })
 
