@@ -149,12 +149,25 @@ pcall(function()
   require("nvim-treesitter").setup({
     install_dir = vim.fn.stdpath("data") .. "/site",
   })
-  require("nvim-treesitter").install({ "typst" })
+  require("nvim-treesitter").install({
+    "typst", "ocaml", "ocaml_interface",
+    "python", "lua", "c", "cpp", "julia",
+    "markdown", "markdown_inline", "bash",
+  })
 end)
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "typst" },
-  callback = function() vim.treesitter.start() end,
+  pattern = {
+    "typst", "ocaml", "ocamlinterface",
+    "python", "lua", "c", "cpp", "julia", "markdown", "bash",
+  },
+  callback = function(args)
+    vim.treesitter.start()  -- Treesitter highlight
+    -- Python uses indentpython.vim; everyone else gets treesitter indent
+    if vim.bo[args.buf].filetype ~= "python" then
+      vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+  end,
 })
 
 -- julia-vim needs matchit loaded
