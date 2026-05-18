@@ -63,8 +63,6 @@ if not vim.g.vscode then
     "https://github.com/stevearc/conform.nvim",
     "https://github.com/williamboman/mason.nvim",
     "https://github.com/williamboman/mason-lspconfig.nvim",
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/greggh/claude-code.nvim",
     "https://github.com/nvim-tree/nvim-tree.lua",
     "https://github.com/nvim-tree/nvim-web-devicons",
   })
@@ -195,7 +193,6 @@ if not vim.g.vscode then
       },
     })
 
-    require("claude-code").setup()
   end)
 
   vim.keymap.set("n", "<leader>f", function()
