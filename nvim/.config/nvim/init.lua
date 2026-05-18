@@ -87,10 +87,8 @@ vim.api.nvim_create_autocmd("PackChanged", {
 -- ============================================================
 
 -- Colorscheme (load early so subsequent highlights apply)
-pcall(function()
-  require("onedark").setup({ style = "darker" })
-  require("onedark").load()
-end)
+require("onedark").setup({ style = "darker" })
+require("onedark").load()
 
 local function typst_hl()
   local set = vim.api.nvim_set_hl
@@ -163,17 +161,14 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.cmd("runtime macros/matchit.vim")
 
 -- nvim-tree
-pcall(function()
-  require("nvim-tree").setup({ view = { width = 50 } })
-end)
+require("nvim-tree").setup({ view = { width = 50 } })
 
 -- Non-VSCode-only plugin setups
 if not vim.g.vscode then
-  pcall(function()
-    require("mason").setup()
-    require("mason-lspconfig").setup({
-      ensure_installed = { "pyright", "tinymist" },
-    })
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    ensure_installed = { "basedpyright", "ruff", "tinymist" },
+  })
 
     require("conform").setup({
       formatters = {
