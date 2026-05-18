@@ -235,10 +235,6 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_user_command('RemoveTrailingWhitespace', function()
-  vim.cmd([[%s/\s\+$//e]])
-end, {})
-
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     -- Clear LSP's formatexpr so `gq` falls back to Vim's built-in wrapping
