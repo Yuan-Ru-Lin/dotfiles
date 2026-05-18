@@ -255,15 +255,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  pattern = "scp://*",
-  callback = function()
-    if vim.bo.buftype ~= "" then
-      vim.bo.completefunc = "v:lua.CompleteDummy"
-    end
-  end,
-})
 
-function _G.CompleteDummy(findstart, base)
-  if findstart == 1 then return 0 else return {} end
-end
