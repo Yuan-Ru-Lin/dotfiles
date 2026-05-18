@@ -202,13 +202,13 @@ if not vim.g.vscode then
     },
   })
 
-  vim.keymap.set("n", "<leader>f", function()
+  vim.keymap.set({ "n", "x" }, "<leader>f", function()
     require("conform").format({
       lsp_fallback = true,
       async = false,
       timeout_ms = 3000,
     })
-  end, { desc = "Format buffer with Conform" })
+  end, { desc = "Format buffer or range with Conform" })
 end
 
 -- ============================================================
