@@ -14,11 +14,6 @@ opt.splitbelow  = true
 -- ============================================================
 local g = vim.g
 g.slime_target                  = "neovim"
-g.AutoPairs                     = {
-  ['(']=')', ['[']=']', ['{']='}', ["'"]="'", ['"']='"',
-  ['`']='`', ['```']='```', ['"""']='"""', ["'''"]="'''", ['$']='$'
-}
-g.AutoPairsShortcutFastWrap     = '<C-e>'
 g.julia_indent_align_brackets   = 0
 g.netrw_banner                  = 0
 g.copilot_filetypes             = { ['*'] = true, markdown = false, typst = false, tex = false, }
@@ -45,7 +40,7 @@ g.loaded_netrwPlugin = 1
 vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/jpalardy/vim-slime",
-  "https://github.com/jiangmiao/auto-pairs",
+  "https://github.com/windwp/nvim-autopairs",
   "https://github.com/tpope/vim-surround",
   "https://github.com/navarasu/onedark.nvim",
   "https://github.com/raivivek/vim-snakemake",
@@ -139,6 +134,19 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   callback = typst_hl,
 })
 typst_hl()  -- 如果 colorscheme 已經載入了，立即套用一次
+
+-- Autopairs
+require("nvim-autopairs").setup({
+  check_ts = true,
+  fast_wrap = {
+    map = '<C-e>',
+  },
+})
+
+local Rule = require("nvim-autopairs.rule")
+require("nvim-autopairs").add_rules({
+  Rule("$", "$", { "tex", "typst", "markdown" }),
+})
 
 -- Treesitter
 pcall(function()
