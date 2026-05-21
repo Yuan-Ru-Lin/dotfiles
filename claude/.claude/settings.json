@@ -27,7 +27,9 @@
       "Bash(git diff:*)",
       "Bash(git show:*)",
       "Bash(git branch:*)",
-      "Bash(git remote:*)"
+      "Bash(git remote:*)",
+      "WebFetch",
+      "WebSearch"
     ]
   },
   "enabledPlugins": {
