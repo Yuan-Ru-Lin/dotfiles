@@ -7,6 +7,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export EDITOR=nvim
 alias vim="nvim"
+alias imgcat="kitty icat"
 
 if [ -n "$SSH_CONNECTION" ]; then
     unset SSH_ASKPASS

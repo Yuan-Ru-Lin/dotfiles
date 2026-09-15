@@ -32,6 +32,7 @@
       "WebSearch"
     ]
   },
+  "model": "fable[1m]",
   "enabledPlugins": {
     "code-simplifier@claude-plugins-official": true,
     "github@claude-plugins-official": true,
@@ -53,7 +54,10 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
-  "autoCompactEnabled": false
+  "autoCompactEnabled": false,
+  "agentPushNotifEnabled": true,
+  "cleanupPeriodDays": 365
 }

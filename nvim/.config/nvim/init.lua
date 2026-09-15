@@ -131,6 +131,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 typst_hl()  -- 如果 colorscheme 已經載入了，立即套用一次
 
+require('typst-preview').setup({
+  dependencies_bin = {
+    tinymist = vim.fn.stdpath('data') .. '/mason/bin/tinymist',
+  },
+})
+
 -- Autopairs
 require("nvim-autopairs").setup({
   check_ts = true,
@@ -140,8 +146,21 @@ require("nvim-autopairs").setup({
 })
 
 local Rule = require("nvim-autopairs.rule")
+local cond = require("nvim-autopairs.conds")
 require("nvim-autopairs").add_rules({
-  Rule("$", "$", { "tex", "typst", "markdown" }),
+  Rule("$", "$", { "tex", "typst", "markdown" }):with_move(cond.done()),
+  Rule(" ", " ", { "tex", "typst", "markdown" })
+    :with_pair(function(opts)
+      local pair = opts.line:sub(opts.col - 1, opts.col)
+      return pair == "$$"
+    end)
+    :with_move(cond.none())
+    :with_cr(cond.none())
+    :with_del(function(opts)
+      local col = vim.api.nvim_win_get_cursor(0)[2]
+      local context = opts.line:sub(col - 1, col + 2)
+      return context == "$  $"
+    end),
 })
 
 -- Treesitter
@@ -249,7 +268,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "python", "lua", "c", "cpp", "rust", "markdown", "text", "tex", "gitcommit" },
+  pattern = { "python", "lua", "c", "cpp", "rust", "text", "tex", "gitcommit" },
   callback = function()
     vim.opt_local.textwidth = 80
   end,
@@ -259,6 +278,12 @@ vim.lsp.enable({
     'basedpyright',
     'ruff',
     'ocamllsp',
+})
+
+vim.lsp.config("tinymist", {
+    settings = {
+        typstExtraArgs = { "main.typ" },
+    },
 })
 
 vim.diagnostic.config({
