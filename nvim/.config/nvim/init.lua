@@ -199,7 +199,7 @@ require("nvim-tree").setup({ view = { width = 50 } })
 if not vim.g.vscode then
   require("mason").setup()
   require("mason-lspconfig").setup({
-    ensure_installed = { "basedpyright", "ruff", "tinymist" },
+    ensure_installed = { "ruff", "tinymist" },
   })
 
   require("conform").setup({
@@ -275,7 +275,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.lsp.enable({
-    'basedpyright',
+    -- 'basedpyright',
     'ruff',
     'ocamllsp',
 })
